@@ -12,3 +12,17 @@ data class Student(
     @SerializedName("photo_url")
     var photoUrl:String?
 )
+
+data class Car(
+    val id:String?,
+    val name:String?,
+    val year:Int?,
+    val color:List<String>?,
+    val image:String?,
+    val manufacture:CarManufacturer?
+)
+
+data class CarManufacturer(
+    val name:String?,
+    val country:String?
+)
