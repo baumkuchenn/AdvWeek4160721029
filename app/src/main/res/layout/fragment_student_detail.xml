@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="student"
+            type="com.misoramen.advweek4160721029.model.Student" />
+        <variable
+            name="listener"
+            type="com.misoramen.advweek4160721029.view.ButtonUpdatelClickListener" />
+    </data>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:src="@drawable/ic_launcher_foreground"
+            android:imageUrl="@{student.photoUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +46,7 @@
                 android:id="@+id/txtID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{student.id}"
                 android:hint="Student ID" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,6 +66,7 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{student.name}"
                 android:hint="Student Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,6 +86,7 @@
                 android:id="@+id/txtBod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{student.dob}"
                 android:hint="Birth of Date" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,6 +106,7 @@
                 android:id="@+id/txtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{student.phone}"
                 android:hint="Phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,3 +121,4 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
+</layout>

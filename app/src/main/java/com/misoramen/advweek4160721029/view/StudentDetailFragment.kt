@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.misoramen.advweek4160721029.R
 import com.misoramen.advweek4160721029.databinding.FragmentStudentDetailBinding
 import com.misoramen.advweek4160721029.model.Student
@@ -19,7 +21,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class StudentDetailFragment : Fragment() {
+class StudentDetailFragment : Fragment(), ButtonUpdatelClickListener {
     private lateinit var viewModel: DetailViewModel
     private lateinit var binding: FragmentStudentDetailBinding
     private val studentLiveData = MutableLiveData<Student>()
@@ -28,8 +30,12 @@ class StudentDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStudentDetailBinding.inflate(inflater,container, false)
-        return binding.root
+//        binding = FragmentStudentDetailBinding.inflate(inflater,container, false)
+//        return binding.root
+
+        val inflater = LayoutInflater.from(context)
+        val view = DataBindingUtil.inflate<FragmentStudentDetailBinding>(inflater, R.layout.fragment_student_detail, container, false)
+        return view.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,18 +47,18 @@ class StudentDetailFragment : Fragment() {
             studentLiveData.value = student
         })
 
-        studentLiveData.observe(viewLifecycleOwner, Observer { student ->
-            if (student != null) {
-                val builder = Picasso.Builder(context)
-                builder.listener { picasso, uri, exception ->
-                    exception.printStackTrace() }
-                builder.build().load(student.photoUrl).into(binding.imageView)
-                binding.txtID.setText(student.id)
-                binding.txtName.setText(student.name)
-                binding.txtBod.setText(student.dob)
-                binding.txtPhone.setText(student.phone)
-            }
-        })
+//        studentLiveData.observe(viewLifecycleOwner, Observer { student ->
+//            if (student != null) {
+//                val builder = Picasso.Builder(context)
+//                builder.listener { picasso, uri, exception ->
+//                    exception.printStackTrace() }
+//                builder.build().load(student.photoUrl).into(binding.imageView)
+//                binding.txtID.setText(student.id)
+//                binding.txtName.setText(student.name)
+//                binding.txtBod.setText(student.dob)
+//                binding.txtPhone.setText(student.phone)
+//            }
+//        })
 
         viewModel.fetch(id)
     }
@@ -72,5 +78,10 @@ class StudentDetailFragment : Fragment() {
             }
         })
 
+    }
+
+    override fun onButtonUpdateClick(v: View) {
+        val action = StudentDetailFragmentDirections.actionStudentDetailFragmentToStudentListFragment()
+        Navigation.findNavController(v).navigate(action)
     }
 }
